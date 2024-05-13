@@ -1,6 +1,8 @@
 from todo import Todo
 import datetime
 
+#---------------Display functions---------------#
+#-----------------------------------------------#
 def greet():
     print(f"Welcome back to the task-tracker! Today's date: {(datetime.date.today()).strftime("%m/%d/%y")}")
 
@@ -24,6 +26,24 @@ def showTask(tasklyst):
     for i in tasklyst:
         print(i)
 
+#----------------Boolean functions--------------#
+#-----------------------------------------------#
+def noTask(tasklyst):
+
+    if len(tasklyst) == 0:
+        return True
+    
+    else:
+        return False
+    
+
+#----------------Adding functions---------------#
+#-----------------------------------------------#
+def idTracker(taskNum, idLyst):
+
+    idLyst.append(taskNum)
+    return idLyst
+
 def addTask(taskNum):
 
     newCateg = input("Input category for the new task: >")
@@ -36,39 +56,42 @@ def addTask(taskNum):
     print(temps)
     return temps
 
-
-def editTask(editNum, newTemp, tasklyst):
+def addArchives(taskNum, tasklyst, archivelyst):
 
     for i in range(len(tasklyst)):
-        if i == editNum-1:
+        if i == taskNum:
+            archivelyst.append(tasklyst[i]) 
+            return tasklyst[i]    
+
+#----------------Editing functions--------------#
+#-----------------------------------------------#
+def editTask(taskNum, newTemp, tasklyst):
+
+    for i in range(len(tasklyst)):
+        if i == taskNum-1:
             tasklyst[i] = newTemp
 
     return tasklyst
 
 
+#----------------Removing functions-------------#
+#-----------------------------------------------#
 #Need repair
-def removeTask(editNum, tasklyst):
-    
-    if editNum == len(tasklyst):
-        
-        tasklyst.pop()
-        return tasklyst
-    
-    else:
-        for i in range(len(tasklyst)):
-            
-            if i >= editNum-1 and i < len(tasklyst)-1:
-                tasklyst[i] = tasklyst[i+1]
 
-        tasklyst.pop()
+def removeID(taskNum, idLyst):
 
-        return tasklyst
+    lystSeq = 0
+    for i in range(len(idLyst)):
+        if idLyst[i] == taskNum:
+            lystSeq = i
+            idLyst.remove(i)
+       
+    return lystSeq
 
 
-def noTask(tasklyst):
 
-    if len(tasklyst) == 0:
-        return True
-    
-    else:
-        return False
+# def removeTask(taskNum, tasklyst):
+
+#     tasklyst.remove(taskNum)
+#     return tasklyst
+

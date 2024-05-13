@@ -14,3 +14,11 @@ A task tracker program that allows user to add/edit/view/delete tasks.
 - Still need more organizing work
 - remove function not working well enough
 - should add test data to smooth the dev process
+
+
+5/13/24
+- fixed the remove functions
+- organized layouts
+- added back idtracker function
+- added test data
+- changed some variable names to make it more consistent

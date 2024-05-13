@@ -1,13 +1,44 @@
-from task import greet, menu, showToday, addTask, showTask, editTask, removeTask, noTask
+from todo import Todo
+#Function for Display
+from task import greet, menu, showToday, showTask
+#Function for Boolean
+from task import noTask
+#Function for Adding
+from task import idTracker, addTask, addArchives
+#Function for Editing
+from task import editTask
+#Function for Removing
+from task import removeID
+
+
 
 def main():
 
     greet()
 
-    seq = 0        #count amount of tasks
-    tasklyst = []  #store ongoing task objects 
-    archived = []  #store archived task objects
+    seq = 4            #count amount of tasks
+    idLyst = []        #store ongoing task id numbers
+    tasklyst = []      #store ongoing task objects 
+    archivelyst = []   #store archived task objects
     flag_menu = True
+
+
+    ###test data###
+    test1 = Todo(1, "business", "fund", "$30K", 30, 0)
+    test2 = Todo(2, "personal", "shopping", "dress", 3, 1)
+    test3 = Todo(3, "drama", "repair", "roof", 2, 1)
+    test4 = Todo(4, "personal", "grocery", "", 1, 0)
+    
+    idLyst.append(1)
+    idLyst.append(2)
+    idLyst.append(3)
+    idLyst.append(4)
+
+    tasklyst.append(test1)
+    tasklyst.append(test2)
+    tasklyst.append(test3)
+    tasklyst.append(test4)
+    ###---------###
 
     while (flag_menu != False):
 
@@ -35,6 +66,7 @@ def main():
             while( flag_add != False):
 
                 seq += 1
+                idLyst = idTracker(seq, idLyst)
                 temp = addTask(seq)
                 tasklyst.append(temp)
 
@@ -74,28 +106,30 @@ def main():
 
             else:
 
-                editNum = int(input("Which task would you like to edit? >"))
-                if editNum <=0 or editNum > seq:
-                    print("Out of range!")
+                removeNum = int(input("Which task would you like to edit? >"))
+                if removeNum >= 1 and removeNum <= seq:
+
+                    removeSeq = removeID(removeNum, idLyst)
+                    print(removeSeq)
+                    temp = addArchives(removeSeq, tasklyst, archivelyst)
+                    showTask(archivelyst)
+                    #tasklyst = removeTask(removeSeq, tasklyst)
+                    tasklyst.remove(temp)
 
                 else:
 
-                    for i in range(len(tasklyst)):
-                        if i == editNum-1:
-                            archived.append(tasklyst[i])
-                    
-                    tasklyst = removeTask(editNum, tasklyst)
+                    print("Out of range!")
 
 
         elif action == 6:
             
             #Check if there's task on the list
-            taskFlag = noTask(archived)
+            taskFlag = noTask(archivelyst)
             if taskFlag == True:
                 print("No archived tasks on the list.")
 
             else:
-                showTask(archived)
+                showTask(archivelyst)
 
         #6. End This Program
         elif action == 7:
